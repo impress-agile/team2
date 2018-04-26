@@ -1,0 +1,34 @@
+*** Settings ***
+Library           Selenium2Library
+
+*** Variables ***
+${BROWSER}        chrome
+
+*** Test Cases ***
+Add Operation Works Well
+    [Template]    Add Operation Workflow
+    1    1    Success
+    2    200    Error
+
+*** Keywords ***
+Add Operation Workflow
+    [Arguments]    ${id}    ${suryo}    ${expected}
+    Open Application Page
+    ${calc_value}=    Calculate In Application Page    ${id}    ${suryo}
+    Should Be Equal    ${calc_value}    ${expected}
+    Close Application Page
+
+Open Application Page
+    Open Browser    http://localhost:9080/pos/zaiko    ${BROWSER}
+
+Calculate In Application Page
+    [Arguments]    ${id}    ${suryo}
+    Input Text    id    ${id}
+    Input Text    suryo    ${suryo}
+    Submit Form
+    Wait Until Page Contains Element	result
+    ${result}=    Get Value    result
+    [Return]    ${result}
+
+Close Application Page
+    Close Browser

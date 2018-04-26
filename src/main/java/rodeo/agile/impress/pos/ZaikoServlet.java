@@ -18,11 +18,13 @@ public class ZaikoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id = request.getParameter("id");
+        String idString = request.getParameter("id");
         String suryoString = request.getParameter("suryo");
 
+        int id = 0;
         int suryo = 0;
         try {
+        	id = Integer.parseInt(idString);
         	suryo = Integer.parseInt(suryoString);
 
         	String dbPath = getServletContext().getRealPath("WEB-INF/pos.db");
@@ -35,7 +37,7 @@ public class ZaikoServlet extends HttpServlet {
 
         	request.setAttribute("id", id);
             request.setAttribute("suryo", suryoString);
-            request.getRequestDispatcher("jsp/stocks/input_zaiko.jsp").forward(request, response);
+            request.getRequestDispatcher("jsp/stocks/error.jsp").forward(request, response);
             return;
         }
         

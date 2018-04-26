@@ -44,7 +44,7 @@ public class ZaikoServletTest {
 
     @Test
     public void testPostAccessShouldBeForwardedToSuccessPageIfInputValuesAreValid() throws ServletException, IOException {
-    	this.request.addParameter("id", "ValidName");
+    	this.request.addParameter("id", "1");
     	this.request.addParameter("suryo", "5");
 
         this.servlet.doPost(this.request, this.response);    
@@ -59,6 +59,6 @@ public class ZaikoServletTest {
 
         this.servlet.doPost(this.request, this.response);    
 
-        assertThat(this.response.getForwardedUrl(), is("jsp/stocks/input_zaiko.jsp"));    	
+        assertThat(this.response.getForwardedUrl(), is("jsp/stocks/error.jsp"));    	
     }
 }
